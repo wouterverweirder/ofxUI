@@ -126,7 +126,8 @@ public:
         {
             ofFill(); 
             ofSetColor(color_fill); 
-			font->drawString(label, floor(rect->getX())+xOffset, floor(rect->getY()+rect->getHeight())+yOffset); 
+			font->drawString(label, floor(rect->getX())+xOffset,
+							 floor(rect->getY()+rect->getHeight()-(getStringHeight(label)-getLineHeight()))+yOffset);
         }
 	}
 	
@@ -136,7 +137,8 @@ public:
         {
             ofFill(); 
             ofSetColor(color_fill_highlight); 
-			font->drawString(label, floor(rect->getX())+xOffset, floor(rect->getY()+rect->getHeight())+yOffset); 
+			font->drawString(label, floor(rect->getX())+xOffset,
+							 floor(rect->getY()+rect->getHeight()-(getStringHeight(label)-getLineHeight()))+yOffset);
         }        
 	}	
             
@@ -144,7 +146,8 @@ public:
     {      
         ofFill(); 
         ofSetColor(color_back);     
-        font->drawString(label, floor(rect->getX())+1+xOffset, floor(rect->getY()+rect->getHeight())+1+yOffset);
+        font->drawString(label, floor(rect->getX())+1+xOffset,
+						 floor(rect->getY()+rect->getHeight()-(getStringHeight(label)-getLineHeight()))+1+yOffset);
     }
     
 	void drawString(float x, float y, string _string)
@@ -185,7 +188,7 @@ public:
         if(autoSize)
         {
             float w = font->stringWidth(label); 
-            float h = font->stringHeight("1");          //otherwise we get some funky non-uniform spacing :(
+            float h = font->stringHeight(label);          //otherwise we get some funky non-uniform spacing :(
             rect->setWidth(w); 
             rect->setHeight(h); 		 
             paddedRect->setWidth(w+padding*3.0); 
@@ -202,10 +205,10 @@ public:
                 label.erase (it);                    
             }                        
             float w = (int)font->stringWidth(label); 
-            float h = (int)font->stringHeight("1");     //otherwise we get some funky non-uniform spacing :(
+            float h = (int)font->stringHeight(label);     //otherwise we get some funky non-uniform spacing :(
             if(rect->getHeight() > 0)
             {
-                yOffset = (int)-h*.5;                
+                yOffset = (int)-h*.5;
             }
             else
             {
