@@ -27,71 +27,71 @@
 
 #include "ofxUIWidgetWithLabel.h"
 
-class ofxUILabel : public ofxUIWidgetWithLabel
+class ofxUILabel : public ofxUIWidget
 {
 public:
-    ofxUILabel() : ofxUIWidgetWithLabel() 
+    ofxUILabel() : ofxUIWidget()
     {
         
     }
     
-    ofxUILabel(float x, float y, string _name, string _label, int _size) : ofxUIWidgetWithLabel()
+    ofxUILabel(float x, float y, string _name, string _label, int _size) : ofxUIWidget()
     {
         rect = new ofxUIRectangle(x,y,0,0); 
         init(_name, _label, _size); 		
         autoSize = true;
     }
 
-    ofxUILabel(float x, float y, string _name, int _size) : ofxUIWidgetWithLabel()
+    ofxUILabel(float x, float y, string _name, int _size) : ofxUIWidget()
     {
         rect = new ofxUIRectangle(x,y,0,0); 
         init(_name, _name, _size); 		
         autoSize = true;
     }
 
-    ofxUILabel(string _name, string _label, int _size) : ofxUIWidgetWithLabel()
+    ofxUILabel(string _name, string _label, int _size) : ofxUIWidget()
     {
         rect = new ofxUIRectangle(0,0,0,0); 
         init(_name, _label, _size); 		
         autoSize = true;        
     }	
 
-    ofxUILabel(string _name, int _size) : ofxUIWidgetWithLabel()
+    ofxUILabel(string _name, int _size) : ofxUIWidget()
     {
         rect = new ofxUIRectangle(0,0,0,0); 
         init(_name, _name, _size); 		
         autoSize = true;
     }   
     
-    ofxUILabel(float x, float y, float w, string _name, string _label, int _size) : ofxUIWidgetWithLabel()
+    ofxUILabel(float x, float y, float w, string _name, string _label, int _size) : ofxUIWidget()
     {
         rect = new ofxUIRectangle(x,y,w,0); 
         init(_name, _label, _size); 		
         autoSize = false;
     }
     
-    ofxUILabel(float x, float y, float w, string _name, int _size) : ofxUIWidgetWithLabel()
+    ofxUILabel(float x, float y, float w, string _name, int _size) : ofxUIWidget()
     {
         rect = new ofxUIRectangle(x,y,w,0); 
         init(_name, _name, _size); 		
         autoSize = false;
     }
     
-    ofxUILabel(float w, string _name, string _label, int _size) : ofxUIWidgetWithLabel()
+    ofxUILabel(float w, string _name, string _label, int _size) : ofxUIWidget()
     {
         rect = new ofxUIRectangle(0,0,w,0); 
         init(_name, _label, _size); 		
         autoSize = false;        
     }	
     
-    ofxUILabel(float w, string _name, int _size) : ofxUIWidgetWithLabel()
+    ofxUILabel(float w, string _name, int _size) : ofxUIWidget()
     {
         rect = new ofxUIRectangle(0,0,w,0); 
         init(_name, _name, _size); 		
         autoSize = false;
     }   
 
-    ofxUILabel(float w, string _name, int _size, float h) : ofxUIWidgetWithLabel()
+    ofxUILabel(float w, string _name, int _size, float h) : ofxUIWidget()
     {
         rect = new ofxUIRectangle(0,0,w,h); 
         init(_name, _name, _size); 		
@@ -187,40 +187,49 @@ public:
 		label = _label;
         if(autoSize)
         {
-            float w = font->stringWidth(label); 
+            float w = font->stringWidth(label);
             float h = font->stringHeight(label);          //otherwise we get some funky non-uniform spacing :(
             rect->setWidth(w); 
             rect->setHeight(h); 		 
-            paddedRect->setWidth(w+padding*3.0); 
+            paddedRect->setWidth(w+padding*2.0);
             paddedRect->setHeight(h+padding*2.0);
             xOffset = 0;
             yOffset = 0;
         }
         else
-        {
+        {                    
             while(getStringWidth(label) > rect->width-padding*4.0)
             {
-                string::iterator it;
-                it=label.begin();
-                label.erase (it);                    
+                label = label.substr(0, label.size()-1);
             }                        
-            float w = (int)font->stringWidth(label); 
+//            float w = (int)font->stringWidth(label);
             float h = (int)font->stringHeight(label);     //otherwise we get some funky non-uniform spacing :(
             if(rect->getHeight() > 0)
             {
-                yOffset = (int)-h*.5;
+                yOffset = 0;
             }
             else
             {
                 rect->setHeight(h);
                 yOffset = 0; 
             }
-            paddedRect->height = rect->getHeight()+padding*2.0;             
+            paddedRect->height = rect->getHeight()+padding*2.0;
             paddedRect->width = rect->getWidth()+padding*2.0;
-            xOffset = (int) (rect->width*.5 - w*.5);
+//            xOffset = (int) (rect->width*.5 - w*.5);
+            xOffset = 0;
         }
 	}
-        
+    
+    bool getAutoSize()
+    {
+        return autoSize;
+    }
+    
+    void setAutoSize(bool _autoSize)
+    {
+        autoSize = _autoSize;
+    }
+    
     string& getLabel()
     {
         return label; 

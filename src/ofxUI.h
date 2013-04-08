@@ -38,19 +38,19 @@
 
 #define OFX_UI_GLOBAL_PADDING 2
 #define OFX_UI_GLOBAL_WIDGET_SPACING 4
-#define OFX_UI_GLOBAL_CANVAS_SIZE 211
+#define OFX_UI_GLOBAL_CANVAS_WIDTH 211
 #define OFX_UI_GLOBAL_SLIDER_HEIGHT 16
-#define OFX_UI_GLOBAL_WAVEFORM_HEIGHT 64
+#define OFX_UI_GLOBAL_GRAPH_HEIGHT 64
 #define OFX_UI_GLOBAL_BUTTON_DIMENSION 16
 #define OFX_UI_GLOBAL_SPACING_HEIGHT 1
 
-#define OFX_UI_COLOR_BACK ofColor(0, 25)                                //the rect's back color
-#define OFX_UI_COLOR_OUTLINE ofColor(255, 255, 255, 100)                //the rect's outline color 
-#define OFX_UI_COLOR_OUTLINE_HIGHLIGHT ofColor(255, 255, 255, 200)      //the rect's onMouseOver outline highlight color         
-#define OFX_UI_COLOR_FILL ofColor(255, 255, 255, 200)                   //the rect's fill color 
-#define OFX_UI_COLOR_FILL_HIGHLIGHT ofColor(255, 255, 255, 255)         //the rect's onMouseDown highlight color 
-#define OFX_UI_COLOR_PADDED ofColor(0, 100)                             //the rect's padded color
-#define OFX_UI_COLOR_PADDED_OUTLINE ofColor(255, 200)         //the rect's padded outline color
+#define OFX_UI_COLOR_BACK ofColor(0, 25)                                    //the rect's back color
+#define OFX_UI_COLOR_OUTLINE ofColor(255, 255, 255, 100)                    //the rect's outline color
+#define OFX_UI_COLOR_OUTLINE_HIGHLIGHT ofColor(255, 255, 255, 200)          //the rect's onMouseOver outline highlight color
+#define OFX_UI_COLOR_FILL ofColor(255, 255, 255, 200)                       //the rect's fill color
+#define OFX_UI_COLOR_FILL_HIGHLIGHT ofColor(255, 255, 255, 255)             //the rect's onMouseDown highlight color
+#define OFX_UI_COLOR_PADDED ofColor(0, 100)                                 //the rect's padded color
+#define OFX_UI_COLOR_PADDED_OUTLINE ofColor(255, 200)                       //the rect's padded outline color
 
 #define OFX_UI_COLOR_BACK_ALPHA 25
 #define OFX_UI_COLOR_OUTLINE_ALPHA 100
@@ -66,6 +66,8 @@
 #define OFX_UI_TEXTINPUT_ON_ENTER 0 
 #define OFX_UI_TEXTINPUT_ON_FOCUS 1
 #define OFX_UI_TEXTINPUT_ON_UNFOCUS 2
+
+#define OFX_UI_NUM_OF_THEMES 45
 
 enum ofxWidgetType
 {
@@ -107,7 +109,11 @@ enum ofxWidgetType
     OFX_UI_WIDGET_IMAGESLIDER_V = 35, 
     OFX_UI_WIDGET_CUSTOMIMAGEBUTTON = 36,
     OFX_UI_WIDGET_TEXTAREA = 37,
-    OFX_UI_WIDGET_CUSTOMWIDGET = 38
+    OFX_UI_WIDGET_CUSTOMWIDGET = 38,
+    OFX_UI_WIDGET_BASE_DRAWS = 39,
+    OFX_UI_WIDGET_VALUEPLOTTER = 40,
+    OFX_UI_WIDGET_2DGRAPH = 41,
+    OFX_UI_WIDGET_SUPERCANVAS = 42
 };
 
 enum ofxWidgetOrientation
@@ -130,7 +136,8 @@ enum ofxWidgetAlignment
 	OFX_UI_ALIGN_FREE = 1,
 	OFX_UI_ALIGN_RIGHT = 2,    
     OFX_UI_ALIGN_TOP = 3, 
-    OFX_UI_ALIGN_BOTTOM = 4
+    OFX_UI_ALIGN_BOTTOM = 4,
+    OFX_UI_ALIGN_CENTER = 5
 };
 
 enum ofxWidgetPosition
@@ -239,6 +246,7 @@ enum ofxUIThemeType
 #include "ofxUIMultiImageToggle.h"
 #include "ofxUIRadio.h"
 #include "ofxUI2DPad.h"
+#include "ofxUI2DGraph.h"
 #include "ofxUITextInput.h"
 #include "ofxUITextArea.h"
 #include "ofxUINumberDialer.h"
@@ -253,9 +261,12 @@ enum ofxUIThemeType
 #include "ofxUIWaveform.h"
 #include "ofxUISpectrum.h"
 #include "ofxUIMovingGraph.h"
+#include "ofxUIValuePlotter.h"
 #include "ofxUIImage.h"
+#include "ofxUIBaseDraws.h"
 #include "ofxUIImageSampler.h"
 #include "ofxUICanvas.h"
 #include "ofxUIScrollableCanvas.h"
+#include "ofxUISuperCanvas.h"
 
 #endif

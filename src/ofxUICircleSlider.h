@@ -67,6 +67,7 @@ public:
 		paddedRect->setParent(rect);     
         
         draw_fill = true; 
+        draw_outline = true;
         
         value = *_value;                                               //the widget's value
         if(useReference)
@@ -95,7 +96,7 @@ public:
 		value = ofMap(value, min, max, 0.0, 1.0, true); 
                 
         label = new ofxUILabel(0,w+padding,(name+" LABEL"), name, _size); 	
-        label->setDrawBack(true);        
+        label->setDrawBack(false);
 		label->setParent(label); 
 		label->setRectParent(rect); 	
         label->setEmbedded(true);        
@@ -276,6 +277,18 @@ public:
         
         labelrect->x = (int)(pw*.5 - w*.5-padding*.5); 
     }	
+    
+    virtual bool isHit(float x, float y)
+    {
+        if(visible && ofDist(x, y, rect->getX()+rect->getHalfWidth(), rect->getY()+rect->getHalfHeight()) < rect->getHalfWidth())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     
 protected:
     ofxWidgetInputDirection inputDirection; 

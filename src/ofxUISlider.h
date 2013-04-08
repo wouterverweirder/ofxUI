@@ -117,7 +117,7 @@ public:
 
 		max = _max;
 		min = _min; 
-        labelPrecision = 2;
+        labelPrecision = 2;    
         
 		if(value > max)
 		{
@@ -368,8 +368,9 @@ public:
         else if(value < 0.0)
         {
             value = 0.0;
-        }        
-        updateValueRef();        
+        }
+                
+        updateValueRef();
 		updateLabel(); 
 	}
     
@@ -465,7 +466,10 @@ public:
 	virtual void setParent(ofxUIWidget *_parent)
 	{
 		parent = _parent; 
-		paddedRect->height += label->getPaddingRect()->height; 
+        label->getRect()->setY(rect->getHeight()+padding);
+        paddedRect->height = rect->getHeight() + label->getPaddingRect()->height + padding;
+        paddedRect->x = -padding;
+        paddedRect->y = -padding; 
         if(label->getPaddingRect()->width > paddedRect->width)
         {
             paddedRect->width = label->getPaddingRect()->width;				
@@ -500,7 +504,7 @@ public:
         return min; 
     }
     
-    ofVec2f getMaxAndMind()
+    ofVec2f getMaxAndMin()
     {
         return ofVec2f(max, min); 
     }
@@ -522,7 +526,7 @@ public:
     }
     
 protected:    //inherited: ofxUIRectangle *rect; ofxUIWidget *parent; 
-	float value, increment; 
+    float value, increment;
     float *valueRef; 
     bool useReference;     
 	float max, min;  

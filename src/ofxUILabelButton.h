@@ -30,16 +30,16 @@
 class ofxUILabelButton : public ofxUIButton
 {
 public:
-    ofxUILabelButton(string _name, bool _value, float w = 0, float h = 0, float x = 0, float y = 0, int _size = OFX_UI_FONT_MEDIUM) : ofxUIButton()
+    ofxUILabelButton(string _name, bool _value, float w = 0, float h = 0, float x = 0, float y = 0, int _size = OFX_UI_FONT_MEDIUM, bool _justifyLeft = false) : ofxUIButton()
     {
         useReference = false;
-        init(_name, &_value, w, h, x, y, _size);
+        init(_name, &_value, w, h, x, y, _size, _justifyLeft);
     }
 
-    ofxUILabelButton(string _name, bool *_value, float w = 0, float h = 0, float x = 0, float y = 0, int _size = OFX_UI_FONT_MEDIUM) : ofxUIButton()
+    ofxUILabelButton(string _name, bool *_value, float w = 0, float h = 0, float x = 0, float y = 0, int _size = OFX_UI_FONT_MEDIUM, bool _justifyLeft = false) : ofxUIButton()
     {
         useReference = true;
-        init(_name, _value, w, h, x, y, _size);
+        init(_name, _value, w, h, x, y, _size, _justifyLeft);
     }
 
     // DON'T USE THE NEXT CONSTRUCTORS
@@ -101,9 +101,10 @@ public:
 //        ofLogWarning("OFXUILABELBUTTON: DON'T USE THIS CONSTRUCTOR. THIS WILL BE REMOVED ON FUTURE RELEASES.");
 //    }  
     
-    virtual void init(string _name, bool *_value, float w, float h, float x = 0, float y = 0, int _size = OFX_UI_FONT_MEDIUM)
+    virtual void init(string _name, bool *_value, float w, float h, float x = 0, float y = 0, int _size = OFX_UI_FONT_MEDIUM, bool _justifyLeft = false)
     {
         rect = new ofxUIRectangle(x,y,w,h);
+        justifyLeft = _justifyLeft; 
         autoSize = w == 0 ? true : false;
         name = string(_name);  		
         
@@ -147,10 +148,11 @@ public:
 	void setParent(ofxUIWidget *_parent)
 	{
 		parent = _parent; 
-        if(rect->height == 0)
+        float compareHeight = label->getPaddingRect()->height+padding*2.0;
+        if(rect->height == 0 || rect->height < compareHeight)
         {
-            rect->height = label->getPaddingRect()->height+padding*2.0; 
-        }    
+            rect->height = compareHeight;
+        }
 		ofxUIRectangle *labelrect = label->getRect();
         
         label->setParent(this);
@@ -176,11 +178,19 @@ public:
 		float h = labelrect->getHeight(); 
 		float ph = rect->getHeight(); 	
         
-        float w = labelrect->getWidth(); 
-        float pw = rect->getWidth(); 
         
-		labelrect->y = (int)(ph*.5 - h*.5); 
-        labelrect->x = (int)(pw*.5 - w*.5-padding*.5); 
+		labelrect->y = (int)(ph*.5 - h*.5);
+        if(justifyLeft)
+        {
+            labelrect->x = padding; 
+        }
+        else
+        {
+            float w = labelrect->getWidth();
+            float pw = rect->getWidth();
+            labelrect->x = (int)(pw*.5 - w*.5-padding*.5);
+        }
+        
 		paddedRect->height = rect->height+padding*2.0;  
         paddedRect->width = rect->width+padding*2.0;        
 	}
@@ -192,9 +202,21 @@ public:
         label->setDrawBack((*value));
 	}
     
+    void setLabelVisible(bool _visible)
+    {
+        drawLabel = _visible;
+        label->setVisible(drawLabel);
+    }
+    
+    void setVisible(bool _visible)
+    {
+        visible = _visible;
+        label->setVisible((visible && drawLabel));
+    }
     
 protected:    //inherited: ofxUIRectangle *rect; ofxUIWidget *parent; 
-    bool autoSize; 
-}; 
+    bool autoSize;
+    bool justifyLeft; 
+};
 
 #endif
