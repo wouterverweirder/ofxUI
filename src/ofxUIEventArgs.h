@@ -25,10 +25,12 @@
 #ifndef OFXUI_EVENT_ARGS
 #define OFXUI_EVENT_ARGS
 
-#include "ofMain.h"
-#include "ofxUI.h"
+class ofxUIWidget;
+class ofxUIButton;
+class ofxUIToggle; 
+class ofxUISlider;
 
-class ofxUIEventArgs : public ofEventArgs
+class ofxUIEventArgs 
 {   
 public:
 	ofxUIEventArgs()
@@ -40,6 +42,27 @@ public:
     {
         widget = _widget; 
     }
+    
+    ofxUIButton *getButton()
+    {
+        return (ofxUIButton *) widget;
+    }
+    
+    ofxUIToggle *getToggle()
+    {
+        return (ofxUIToggle *) widget;
+    }
+    
+    ofxUISlider *getSlider()
+    {
+        return (ofxUISlider *) widget;
+    }
+    
+    string getName()
+    {
+        return widget->getName();
+    }
+    
     ofxUIWidget *widget; 
 }; 
 

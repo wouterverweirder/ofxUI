@@ -80,7 +80,8 @@ public:
         value = new bool(); 
         *value = false; 
         draw_fill = *value;
-        
+
+        bShowCurrentSelected = false;
         allowMultiple = false; 
         initToggles(items, _size);         
         autoClose = false; 
@@ -89,7 +90,7 @@ public:
 
     virtual void draw()
     {
-        ofPushStyle();
+        ofxUIPushStyle();
         
         ofEnableBlendMode(OF_BLENDMODE_ALPHA);
         
@@ -104,7 +105,7 @@ public:
         drawFill();
         drawFillHighlight();
         
-        ofPopStyle();
+        ofxUIPopStyle();
     }
     
     void clearToggles()
@@ -163,6 +164,13 @@ public:
         }
     }    
     
+    void addToggles(vector<string>& toggleNames)
+    {
+        for(int i = 0; i < toggleNames.size(); i++){
+            addToggle(toggleNames[i]);
+        }
+    }
+    
     void removeToggle(string toggleName)
     {
         ofxUILabelToggle *t = NULL; 
@@ -202,6 +210,51 @@ public:
             
         }
         
+    }
+
+    bool* getShowCurrentSelectedPtr()
+    {
+        return &bShowCurrentSelected;
+    }
+    
+    bool getShowCurrentSelected()
+    {
+        return bShowCurrentSelected;
+    }
+    
+    void setShowCurrentSelected(bool _bShowCurrentSelected)
+    {
+        bShowCurrentSelected = _bShowCurrentSelected;
+        checkAndSetTitleLabel();
+    }
+    
+    void checkAndSetTitleLabel()
+    {
+        if(bShowCurrentSelected)
+        {
+            string title = "";
+            int index = 0;
+            for(vector<ofxUIWidget *>::iterator it = selected.begin(); it != selected.end(); it++)
+            {
+                if(index == 0)
+                {
+                    title+=(*it)->getName();
+                }
+                else
+                {
+                    title+=","+(*it)->getName();
+                }
+                index++;
+            }
+            if(title.length())
+            {
+                setLabelText(title);
+            }
+        }
+        else
+        {
+            setLabelText(name);
+        }
     }
     
     vector<ofxUIWidget *> & getSelected()
@@ -383,7 +436,7 @@ public:
         
         if(!allowMultiple)
         {
-            activateToggle(child->getName().c_str()); 
+            activateToggle(child->getName().c_str());
         }
         
         selected.clear();
@@ -396,6 +449,7 @@ public:
             }                           
         }        
             
+        checkAndSetTitleLabel();
         
 		if(parent != NULL)
 		{
@@ -463,11 +517,12 @@ public:
     
 protected:    //inherited: ofxUIRectangle *rect; ofxUIWidget *parent; 
     bool autoSize; 
-    bool autoClose; 
+    bool autoClose;
+    bool bShowCurrentSelected; 
     vector<ofxUILabelToggle *> toggles; 
     ofxUILabelToggle *singleSelected; 
-    vector<ofxUIWidget *> selected; 
-    bool allowMultiple; 
+    vector<ofxUIWidget *> selected;
+    bool allowMultiple;
     int size;     
 }; 
 

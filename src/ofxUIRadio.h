@@ -180,6 +180,11 @@ public:
 		return toggles; 
 	}
 	
+	ofxUIToggle* getActive()
+	{
+		return active;
+	}
+	
 	void triggerEvent(ofxUIWidget *child)
 	{
         if(!allowMultiple)
@@ -197,6 +202,10 @@ public:
     {
         toggle->setParent(this);
         toggles.push_back(toggle);
+        if(toggle->getValue())
+        {
+            activateToggle(toggle->getName());
+        }        
     }
     
 protected:    //inherited: ofxUIRectangle *rect; ofxUIWidget *parent; 

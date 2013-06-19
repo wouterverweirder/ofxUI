@@ -61,7 +61,7 @@ public:
         {
             for(int i = 0; i < cols; i++)
             {
-                ofxUIToggle *toggle = new ofxUIToggle(pos.x,pos.y, toggleWidth, toggleHeight, false, (name+"("+ofToString(i,0)+","+ofToString(j,0)+")"));
+                ofxUIToggle *toggle = new ofxUIToggle(pos.x,pos.y, toggleWidth, toggleHeight, false, (name+"("+ofxUIToString(i,0)+","+ofxUIToString(j,0)+")"));
                 toggle->setLabelVisible(false);
                 toggle->setEmbedded(true); 
                 toggles.push_back(toggle);                 
@@ -196,7 +196,49 @@ public:
     {
         allowMultiple = _allowMultiple; 
     }
-
+    
+    virtual void mouseDragged(int x, int y, int button)
+    {
+        if(hit)
+        {
+            bool tv = false;
+            if(ofGetKeyPressed())
+            {
+                tv = true;
+            }
+            
+            for(vector<ofxUIToggle *>::iterator it = toggles.begin(); it != toggles.end(); ++it)
+            {
+                if((*it)->isHit(x, y))
+                {
+                    (*it)->setValue(tv);
+                }
+            }
+        }
+    }
+    
+    virtual void mousePressed(int x, int y, int button)
+    {
+        if(rect->inside(x, y))
+        {
+            hit = true;
+            state = OFX_UI_STATE_DOWN;
+        }
+        else
+        {
+            state = OFX_UI_STATE_NORMAL;
+        }
+        stateChange();
+    }
+    
+    virtual void mouseReleased(int x, int y, int button)
+    {
+        if(hit)
+        {
+            hit = false;
+        }
+    }
+    
 protected:    //inherited: ofxUIRectangle *rect; ofxUIWidget *parent; 
 	vector<ofxUIToggle *> toggles; 		   
     int rows, cols;
