@@ -108,11 +108,11 @@ public:
 		}
 	}
     
-    void triggerSelf()
+    void triggerSelf(const string& type)
     {
 		if(parent != NULL)
 		{
-			parent->triggerEvent(active); 
+			parent->triggerEvent(active, type);
 		}        
     }
 	
@@ -185,7 +185,7 @@ public:
 		return active;
 	}
 	
-	void triggerEvent(ofxUIWidget *child)
+	void triggerEvent(ofxUIWidget *child, const string& type)
 	{
         if(!allowMultiple)
         {
@@ -193,7 +193,7 @@ public:
         }
 		if(parent != NULL)
 		{
-			parent->triggerEvent(child); 
+			parent->triggerEvent(child, type);
 		}
 	}
 

@@ -321,7 +321,7 @@ public:
             {
                 loadSpecificWidgetData(widget, XML); 
                 if(bTriggerWidgetsUponLoad){
-                    triggerEvent(widget);   
+                    triggerEvent(widget, "widgetLoaded");
                 }
             }
             XML->popTag(); 
@@ -2253,10 +2253,11 @@ public:
         return widgetFontSize; 
     }
     
-	void triggerEvent(ofxUIWidget *child)
+	void triggerEvent(ofxUIWidget *child, const string& type)
 	{
         checkForKeyFocus(child);
-        GUIevent->widget = child; 		
+        GUIevent->widget = child;
+        GUIevent->type = type;
         ofNotifyEvent(newGUIEvent,*GUIevent,this);
 	}
 	    

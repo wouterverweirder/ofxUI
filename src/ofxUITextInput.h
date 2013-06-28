@@ -180,7 +180,7 @@ public:
             
             if(triggerOnClick)
             {
-                triggerEvent(this);
+                triggerEvent(this, "mousePressed");
             }
         }
         else
@@ -245,7 +245,7 @@ public:
 				case OF_KEY_RETURN:
 
                     triggerType = OFX_UI_TEXTINPUT_ON_ENTER;
-					triggerEvent(this);
+					triggerEvent(this, "enterPressed");
 					if(autoclear)
 					{
 						textstring.clear(); 
@@ -312,7 +312,7 @@ public:
         {
             clicked = false;          
 			triggerType = OFX_UI_TEXTINPUT_ON_UNFOCUS; 
-			triggerEvent(this);             
+			triggerEvent(this, "unClick");             
         }
     }
     void stateChange()

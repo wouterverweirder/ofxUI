@@ -112,7 +112,7 @@ public:
         {
             state = OFX_UI_STATE_DOWN;     
 			input(x, y); 
-			triggerEvent(this); 			
+			triggerEvent(this, "mouseDragged");
         }    
         else
         {
@@ -128,7 +128,7 @@ public:
             hit = true; 
             state = OFX_UI_STATE_DOWN;     
 			input(x, y); 
-			triggerEvent(this); 
+			triggerEvent(this, "mousePressed");
         }    
         else
         {
@@ -147,7 +147,7 @@ public:
             state = OFX_UI_STATE_OVER; 
 #endif 
 			input(x, y); 
-			triggerEvent(this); 			
+			triggerEvent(this, "mouseReleased");
         }    
         else
         {

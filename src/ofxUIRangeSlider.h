@@ -244,7 +244,7 @@ public:
             hitValueHigh = valuehigh; 
             hitValueLow = valuelow; 
 			input(x, y); 
-			triggerEvent(this); 			
+			triggerEvent(this, "mouseDragged");
         }    
         else
         {
@@ -262,7 +262,7 @@ public:
             hitValueHigh = valuehigh; 
             hitValueLow = valuelow; 
 			input(x, y); 
-			triggerEvent(this); 
+			triggerEvent(this, "mousePressed");
         }    
         else
         {
@@ -281,7 +281,7 @@ public:
             state = OFX_UI_STATE_OVER; 
 #endif 
 			input(x, y); 
-			triggerEvent(this); 	
+			triggerEvent(this, "mouseReleased");
          }    
         else
         {
@@ -303,27 +303,27 @@ public:
 				case OF_KEY_RIGHT:
 					setValueHigh(getScaledValueHigh()+increment); 					
 					setValueLow(getScaledValueLow()+increment); 															
-					triggerEvent(this); 
+					triggerEvent(this, "keyPressed"); 
 					break;
                     
 				case OF_KEY_LEFT:
 					setValueHigh(getScaledValueHigh()-increment); 					
 					setValueLow(getScaledValueLow()-increment); 										
-					triggerEvent(this); 					
+					triggerEvent(this, "keyPressed"); 					
 					break;
 					
 					
 				case OF_KEY_UP:
 					setValueHigh(getScaledValueHigh()+increment); 
 					setValueLow(getScaledValueLow()-increment); 					
-					triggerEvent(this); 
+					triggerEvent(this, "keyPressed"); 
 					break;
 					
 					
 				case OF_KEY_DOWN:
 					setValueHigh(getScaledValueHigh()-increment); 
 					setValueLow(getScaledValueLow()+increment); 					
-					triggerEvent(this); 					
+					triggerEvent(this, "keyPressed"); 					
 					break;					
 					
 				default:

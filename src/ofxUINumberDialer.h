@@ -274,7 +274,7 @@ public:
             }                  
             hitPoint = ofPoint(x,y); 
             setTextString(numToString(abs(*value), precision, numOfPrecisionZones, '0'));     
-			triggerEvent(this);             
+			triggerEvent(this, "mouseDragged");
             state = OFX_UI_STATE_DOWN;         
         }    
         else
@@ -292,7 +292,7 @@ public:
             hitPoint = ofPoint(x,y); 
             calculatePrecisionZone();             
             state = OFX_UI_STATE_DOWN;     
-			triggerEvent(this);            
+			triggerEvent(this, "mousePressed");
         }    
         else
         {
@@ -310,7 +310,7 @@ public:
 #else            
             state = OFX_UI_STATE_OVER; 
 #endif 
-			triggerEvent(this); 
+			triggerEvent(this, "mouseReleased");
         }    
         else
         {
@@ -338,7 +338,7 @@ public:
                     }            
                     
                     setTextString(numToString(abs(*value), precision, numOfPrecisionZones, '0'));     
-                    triggerEvent(this); 
+                    triggerEvent(this, "keyPressed"); 
                     break;
                     
                 case OF_KEY_UP:
@@ -353,7 +353,7 @@ public:
                     }     
                     
                     setTextString(numToString(abs(*value), precision, numOfPrecisionZones, '0'));     
-                    triggerEvent(this); 
+                    triggerEvent(this, "keyPressed"); 
                     break;
                     
                 case OF_KEY_LEFT:
@@ -368,7 +368,7 @@ public:
                     }     
                     
                     setTextString(numToString(abs(*value), precision, numOfPrecisionZones, '0'));     
-                    triggerEvent(this); 
+                    triggerEvent(this, "keyPressed"); 
                     break;
                     
                 case OF_KEY_DOWN:
@@ -383,7 +383,7 @@ public:
                     }      
                     
                     setTextString(numToString(abs(*value), precision, numOfPrecisionZones, '0'));     
-                    triggerEvent(this); 
+                    triggerEvent(this, "keyPressed"); 
                     break;					
                     
                 default:

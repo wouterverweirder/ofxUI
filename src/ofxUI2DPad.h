@@ -246,7 +246,7 @@ public:
         {
             state = OFX_UI_STATE_DOWN;     
 			input(x, y); 
-			triggerEvent(this); 			
+			triggerEvent(this, "mouseDragged");
         }    
         else
         {
@@ -262,7 +262,7 @@ public:
             hit = true; 
             state = OFX_UI_STATE_DOWN;     
 			input(x, y); 
-			triggerEvent(this); 
+			triggerEvent(this, "mousePressed");
         }    
         else
         {
@@ -281,7 +281,7 @@ public:
             state = OFX_UI_STATE_OVER; 
 #endif 
 			input(x, y); 
-			triggerEvent(this); 			
+			triggerEvent(this, "mouseReleased");
         }    
         else
         {
@@ -304,7 +304,7 @@ public:
                     value.x = ofxUIMap(p.x, rangeX.x, rangeX.y, 0.0, 1.0, true);                    
                     updateValueRef();                                            
                     updateLabel();                     
-                    triggerEvent(this);			
+                    triggerEvent(this, "keyPressed");			
                 }
 					break;
 					
@@ -315,7 +315,7 @@ public:
                     value.y = ofxUIMap(p.y, rangeY.x, rangeY.y, 0.0, 1.0, true);                    
                     updateValueRef();                                            
                     updateLabel();                     
-                    triggerEvent(this);	
+                    triggerEvent(this, "keyPressed");	
                 }
 					break;
 					
@@ -326,7 +326,7 @@ public:
                     value.x = ofxUIMap(p.x, rangeX.x, rangeX.y, 0.0, 1.0, true);                    
                     updateValueRef();                                            
                     updateLabel();                     
-                    triggerEvent(this);		
+                    triggerEvent(this, "keyPressed");		
                 }
 					break;
 					
@@ -337,7 +337,7 @@ public:
                     value.y = ofxUIMap(p.y, rangeY.x, rangeY.y, 0.0, 1.0, true);
                     updateValueRef();                        
                     updateLabel();                     
-                    triggerEvent(this);	
+                    triggerEvent(this, "keyPressed");	
                 }
 					break;					
 					

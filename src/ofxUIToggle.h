@@ -140,7 +140,7 @@ public:
 #else            
             state = OFX_UI_STATE_OVER; 
 #endif 
-			triggerEvent(this); 
+			triggerEvent(this, "mouseReleased");
         }    
         else
         {

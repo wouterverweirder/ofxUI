@@ -151,7 +151,7 @@ public:
         
         for(int i = 0; i < toggles.size(); i++)
 		{
-            triggerEvent(toggles[i]); 
+            triggerEvent(toggles[i], "toggle");
         }        
     }
     
@@ -166,7 +166,7 @@ public:
     void setToggleAndTrigger(int x, int y, bool _value)
     {
         setToggle(x,y,_value); 
-        triggerEvent(toggles[x+y*rows]); 
+        triggerEvent(toggles[x+y*rows], "toggle");
         
     }
 
@@ -180,7 +180,7 @@ public:
 		return &toggles;
 	}
 	
-	void triggerEvent(ofxUIWidget *child)
+	void triggerEvent(ofxUIWidget *child, const string& type)
 	{
         if(!allowMultiple)
         {
@@ -188,7 +188,7 @@ public:
         }
 		if(parent != NULL)
 		{
-			parent->triggerEvent(child); 
+			parent->triggerEvent(child, type);
 		}
 	}	
     

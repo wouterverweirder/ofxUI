@@ -188,7 +188,7 @@ public:
             
             hitPoint = ofxUIVec2f(x,y);    
             updateValueRef();
-			triggerEvent(this);             
+			triggerEvent(this, "mouseDragged");
             state = OFX_UI_STATE_DOWN;         
         }    
         else
@@ -205,7 +205,7 @@ public:
             hit = true; 
             hitPoint = ofxUIVec2f(x,y); 
             state = OFX_UI_STATE_DOWN;     
-			triggerEvent(this);            
+			triggerEvent(this, "mousePressed");
         }    
         else
         {
@@ -223,7 +223,7 @@ public:
 #else            
             state = OFX_UI_STATE_OVER; 
 #endif 
-			triggerEvent(this); 
+			triggerEvent(this, "mouseReleased");
         }    
         else
         {

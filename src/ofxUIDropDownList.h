@@ -358,7 +358,7 @@ public:
 #else            
             state = OFX_UI_STATE_OVER; 
 #endif 
-			triggerEvent(this); 
+			triggerEvent(this, "mouseReleased");
         }    
         else
         {
@@ -410,19 +410,19 @@ public:
 		return toggles; 
 	}
 
-    void triggerSelf()
+    void triggerSelf(const string& type)
     {
 		if(parent != NULL)
 		{
-			parent->triggerEvent(singleSelected); 
+			parent->triggerEvent(singleSelected, type);
 		}        
     }
     
-    void triggerEvent(ofxUIWidget *child)
+    void triggerEvent(ofxUIWidget *child, const string& type)
 	{        
         if(child == this)
         {
-            parent->triggerEvent(child); 
+            parent->triggerEvent(child, type);
             return; 
         }
 
@@ -453,8 +453,8 @@ public:
         
 		if(parent != NULL)
 		{
-            parent->triggerEvent(this);
-			parent->triggerEvent(child); 
+            parent->triggerEvent(this, type);
+			parent->triggerEvent(child, type);
 		}        
 	}	    
     

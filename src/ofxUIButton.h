@@ -153,7 +153,7 @@ public:
                 hit = false;
                 state = OFX_UI_STATE_NORMAL;        
                 toggleValue();
-                triggerEvent(this);
+                triggerEvent(this, "mouseDragged");
             }
             stateChange();     
         }
@@ -166,7 +166,7 @@ public:
             hit = true;
             state = OFX_UI_STATE_DOWN;         
             toggleValue();
-			triggerEvent(this);
+			triggerEvent(this, "mousePressed");
         }    
         else
         {
@@ -192,7 +192,7 @@ public:
             }
 #endif 
             toggleValue();            
-			triggerEvent(this);
+			triggerEvent(this, "mouseReleased");
         }    
         else
         {

@@ -432,19 +432,19 @@ public:
 		return name;
 	}
 	
-	virtual void triggerEvent(ofxUIWidget *child)
+	virtual void triggerEvent(ofxUIWidget *child, const string& type)
 	{
 		if(parent != NULL)
 		{
-			parent->triggerEvent(child); 
+			parent->triggerEvent(child, type);
 		}
 	}
     
-    virtual void triggerSelf()
+    virtual void triggerSelf(const string& type)
     {
 		if(parent != NULL)
 		{
-			parent->triggerEvent(this); 
+			parent->triggerEvent(this, type);
 		}        
     }
 	

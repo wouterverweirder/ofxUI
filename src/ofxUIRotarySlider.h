@@ -203,7 +203,7 @@ public:
         {
             state = OFX_UI_STATE_DOWN;     
 			input(x, y); 
-			triggerEvent(this); 			
+			triggerEvent(this, "mouseDragged");
         }    
         else
         {
@@ -219,7 +219,7 @@ public:
             hit = true; 
             state = OFX_UI_STATE_DOWN;     
 			input(x, y); 
-			triggerEvent(this); 
+			triggerEvent(this, "mousePressed");
         }    
         else
         {
@@ -238,7 +238,7 @@ public:
             state = OFX_UI_STATE_OVER; 
 #endif 
 			input(x, y); 
-			triggerEvent(this); 			
+			triggerEvent(this, "mouseReleased");
         }    
         else
         {
@@ -256,22 +256,22 @@ public:
 			{
 				case OF_KEY_RIGHT:
 					setValue(getScaledValue()+increment); 
-					triggerEvent(this); 
+					triggerEvent(this, "keyPressed"); 
 					break;
                     
 				case OF_KEY_UP:
 					setValue(getScaledValue()+increment); 
-					triggerEvent(this); 
+					triggerEvent(this, "keyPressed"); 
 					break;
 					
 				case OF_KEY_LEFT:
 					setValue(getScaledValue()-increment); 					
-					triggerEvent(this); 
+					triggerEvent(this, "keyPressed"); 
 					break;
                     
 				case OF_KEY_DOWN:
 					setValue(getScaledValue()-increment); 					
-					triggerEvent(this); 
+					triggerEvent(this, "keyPressed");
 					break;					
                     
 				default:

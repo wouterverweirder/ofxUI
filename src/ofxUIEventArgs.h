@@ -63,7 +63,8 @@ public:
         return widget->getName();
     }
     
-    ofxUIWidget *widget; 
+    ofxUIWidget *widget;
+    string type;
 }; 
 
 #endif
